@@ -26,6 +26,14 @@ const Address = {
     minLength: [6, "Pincode must be at least 6 characters long"],
     maxLength: [6, "Pincode must be at most 6 characters long"],
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  restaurant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Restaurant",
+  },
 };
 
 const AddressSchema = new mongoose.Schema(Address, {
