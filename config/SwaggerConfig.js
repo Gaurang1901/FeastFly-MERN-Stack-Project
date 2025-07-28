@@ -22,7 +22,7 @@ const options = {
       },
     },
   },
-  apis: ["./routes/*.js"], // <-- Change this line
+  apis: ["./routes/*.js", "./config/swaggerComponents.js"], // <-- Added global components file
 };
 
 module.exports = swaggerJsDoc(options);

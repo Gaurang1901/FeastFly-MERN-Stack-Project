@@ -16,15 +16,22 @@ const discountCoupon = {
     type: Date,
     required: true,
   },
+  minimumOrderValue: {
+    type: Number,
+    required: true,
+  },
+  description: {
+    type: String,
+  },
   isActive: {
     type: Boolean,
     default: true,
   },
-  restaurant:{
+  restaurant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurant",
     required: true,
-  }
+  },
 };
 
 const DiscountCouponSchema = new mongoose.Schema(discountCoupon, {

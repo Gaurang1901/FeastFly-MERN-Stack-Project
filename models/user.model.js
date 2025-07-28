@@ -34,7 +34,7 @@ const User = {
   },
   profilePhoto: {
     type: String,
-    default: "../Assets/ProfilePic.png",
+    default: "",
     required: false,
   },
   phoneNumber: {

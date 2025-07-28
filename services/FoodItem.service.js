@@ -1,7 +1,7 @@
 
 const Food = require("../models/enums/FoodItem.model");
 const Restaurant = require("../models/Restaurant.model");
-const Ingredient = require("../models/enums/Ingredient.model");
+const Ingredient = require("../models/Ingredients.model");
 
 exports.createFoodItem = async (foodData, restaurantId) => {
   if (!foodData.name || !foodData.price) {

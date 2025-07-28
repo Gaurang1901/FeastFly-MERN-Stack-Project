@@ -9,6 +9,8 @@ const addressController = require("../controllers/Address.controller");
  *   description: Address management
  */
 
+// Uses global Swagger components from config/swaggerComponents.js
+
 /**
  * @swagger
  * /api/v1/address:
@@ -20,22 +22,20 @@ const addressController = require("../controllers/Address.controller");
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               street: { type: string }
- *               city: { type: string }
- *               state: { type: string }
- *               pincode: { type: string }
- *             required:
- *               - street
- *               - city
- *               - state
- *               - pincode
+ *             $ref: '#/components/schemas/Address'
  *     responses:
  *       201:
  *         description: Address created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Address'
  *       400:
  *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.post("/", addressController.createAddress);
 
@@ -48,6 +48,12 @@ router.post("/", addressController.createAddress);
  *     responses:
  *       200:
  *         description: Addresses fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Address'
  */
 router.get("/", addressController.getAllAddresses);
 
@@ -66,8 +72,16 @@ router.get("/", addressController.getAllAddresses);
  *     responses:
  *       200:
  *         description: Address fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Address'
  *       404:
  *         description: Address not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get("/:id", addressController.getAddressById);
 
@@ -88,12 +102,20 @@ router.get("/:id", addressController.getAddressById);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/Address'
  *     responses:
  *       200:
  *         description: Address updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Address'
  *       404:
  *         description: Address not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.put("/:id", addressController.updateAddress);
 

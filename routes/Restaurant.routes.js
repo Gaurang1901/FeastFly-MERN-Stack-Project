@@ -12,40 +12,38 @@ const restaurantController = require("../controllers/Restaurant.controller");
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name: { type: string }
- *               description: { type: string }
- *               address:
- *                 type: object
- *                 properties:
- *                   street: { type: string }
- *                   city: { type: string }
- *                   state: { type: string }
- *                   pincode: { type: string }
- *               cuisine: { type: string }
- *               ownerId: { type: string }
- *               restaurantCategory: { type: string }
- *               email: { type: string }
- *               openingTime: { type: string }
- *               closingTime: { type: string }
- *               contactDetails: { type: string }
- *             required:
- *               - name
- *               - address
- *               - ownerId
- *               - email
+ *             $ref: '#/components/schemas/Restaurant'
  *     responses:
  *       201:
  *         description: Restaurant created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Restaurant'
  *       400:
  *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       409:
  *         description: Restaurant already exists for this owner
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Owner not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 // Create a new restaurant
 router.post("/", restaurantController.createRestaurant);
@@ -58,8 +56,18 @@ router.post("/", restaurantController.createRestaurant);
  *     responses:
  *       200:
  *         description: Restaurants fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Restaurant'
  *       500:
  *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 // Get all restaurants
 router.get("/", restaurantController.getAllRestaurants);
@@ -79,10 +87,22 @@ router.get("/", restaurantController.getAllRestaurants);
  *     responses:
  *       200:
  *         description: Restaurant fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Restaurant'
  *       404:
  *         description: Restaurant not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 // Get a restaurant by ID
 router.get("/:id", restaurantController.getRestaurantById);

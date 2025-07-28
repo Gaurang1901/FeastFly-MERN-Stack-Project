@@ -1,17 +1,39 @@
-
 const Order = require("../models/Order.model");
 const User = require("../models/user.model");
 const Restaurant = require("../models/Restaurant.model");
 
-exports.createOrder = async ({ userId, restaurantId, foodItems, quantity, totalPrice, orderStatus, deliveryAddressId }) => {
-  if (!userId || !restaurantId || !foodItems || !quantity || !totalPrice || !deliveryAddressId) {
+exports.createOrder = async ({
+  userId,
+  restaurantId,
+  foodItems,
+  quantity,
+  totalPrice,
+  orderStatus,
+  deliveryAddressId,
+}) => {
+  if (
+    !userId ||
+    !restaurantId ||
+    !foodItems ||
+    !quantity ||
+    !totalPrice ||
+    !deliveryAddressId
+  ) {
     throw { status: 400, message: "All required fields must be provided." };
   }
   const user = await User.findById(userId);
   if (!user) throw { status: 404, message: "User not found" };
   const restaurant = await Restaurant.findById(restaurantId);
   if (!restaurant) throw { status: 404, message: "Restaurant not found" };
-  const newOrder = new Order({ userId, restaurantId, foodItems, quantity, totalPrice, orderStatus, deliveryAddressId });
+  const newOrder = new Order({
+    userId,
+    restaurantId,
+    foodItems,
+    quantity,
+    totalPrice,
+    orderStatus,
+    deliveryAddressId,
+  });
   await newOrder.save();
   if (user.orders) {
     user.orders.push(newOrder._id);
@@ -44,4 +66,24 @@ exports.deleteOrder = async (id) => {
   const order = await Order.findByIdAndDelete(id);
   if (!order) throw { status: 404, message: "Order not found" };
   return order;
+};
+
+exports.getOrdersByUserId = async (userId) => {
+  const user = await User.findById(userId);
+  if (!user) throw { status: 404, message: "User not found" };
+  const orders = await Order.find({ userId: userId });
+  if (!orders || orders.length === 0) {
+    throw { status: 404, message: "No orders found for this user" };
+  }
+  return orders;
+};
+
+exports.getOrdersByRestaurantId = async (restaurantId) => {
+  const user = await User.findById(restaurantId);
+  if (!user) throw { status: 404, message: "User not found" };
+  const orders = await Order.find({ restaurantId: restaurantId });
+  if (!orders || orders.length === 0) {
+    throw { status: 404, message: "No orders found for this user" };
+  }
+  return orders;
 };

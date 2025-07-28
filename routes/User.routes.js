@@ -42,6 +42,8 @@ const authController = require("../controllers/Auth.Controller");
  */
 router.post("/register", authController.register);
 
+// Uses global Swagger components from config/swaggerComponents.js
+
 /**
  * @swagger
  * /api/auth/login:
@@ -53,22 +55,26 @@ router.post("/register", authController.register);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                 type: string
- *               password:
- *                 type: string
- *             required:
- *               - userName
- *               - password
+ *             $ref: '#/components/schemas/LoginRequest'
  *     responses:
  *       200:
  *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       400:
  *         description: Invalid username or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.post("/login", authController.login);
 
