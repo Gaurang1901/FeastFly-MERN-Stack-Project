@@ -7,13 +7,11 @@ const Category = {
   },
   description: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
-    required: true,
   },
-  CategoryType:{
+  categoryType:{
     type: String,
     enum:["Restaurant", "FoodItem"],
     default: "Restaurant",

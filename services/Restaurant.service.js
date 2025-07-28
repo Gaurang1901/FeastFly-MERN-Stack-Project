@@ -2,6 +2,8 @@
 const Restaurant = require("../models/Restaurant.model");
 const User = require("../models/user.model");
 const Address = require("../models/Address.model");
+const ContactDetails = require("../models/Contact.model");
+const CategoryModel = require("../models/Category.model");
 
 exports.createRestaurant = async (data) => {
   const {
@@ -33,21 +35,63 @@ exports.createRestaurant = async (data) => {
     state: address.state,
     pincode: address.pincode,
   });
+  let contactDetailsDoc = {
+    phoneNo: contactDetails?.phoneNo,
+    website: contactDetails?.website,
+    instagram: contactDetails?.instagram,
+    facebook: contactDetails?.facebook,
+    twitter: contactDetails?.twitter,
+  };
+  if (!contactDetailsDoc) {
+    contactDetailsDoc = {
+      phoneNo: null,
+      website: null,
+      instagram: null,
+      facebook: null,
+      twitter: null,
+    };
+  }
+  contactDetailsDoc = await ContactDetails.findOne(contactDetailsDoc);
+  if (!contactDetailsDoc) {
+    contactDetailsDoc = new ContactDetails(contactDetails);
+    await contactDetailsDoc.save();
+  }
+  addressDoc = await Address.findOne({
+    street: address.street,
+    city: address.city,
+    state: address.state,
+    pincode: address.pincode,
+  });
+
   if (!addressDoc) {
     addressDoc = new Address(address);
     await addressDoc.save();
   }
+
+  let restaurantCategoryDoc = {
+    name: restaurantCategory,
+    CategoryType: "Restaurant",
+  };
+  restaurantCategoryDoc = await CategoryModel.findOne({ name: restaurantCategory, CategoryType: "Restaurant" });
+  if (!restaurantCategoryDoc) {
+    restaurantCategoryDoc = new CategoryModel({
+      name: restaurantCategory,
+      description: "",
+      CategoryType: "Restaurant",
+    });
+    await restaurantCategoryDoc.save();
+  };
   const newRestaurant = new Restaurant({
     name,
     description,
     location: addressDoc._id,
     cuisine,
     owner: owner._id,
-    restaurantCategory,
+    restaurantCategory: restaurantCategoryDoc._id,
     email,
     openingTime,
     closingTime,
-    contactDetails,
+    contactDetails: contactDetailsDoc._id,
   });
   await newRestaurant.save();
   owner.restaurant = newRestaurant._id;
