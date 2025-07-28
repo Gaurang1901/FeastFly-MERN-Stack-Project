@@ -1,5 +1,5 @@
 
-const User = require("../models/User.Model");
+const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/TokenGenerator");
 

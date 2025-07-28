@@ -1,6 +1,6 @@
 
 const Restaurant = require("../models/Restaurant.model");
-const User = require("../models/User.Model");
+const User = require("../models/user.model");
 const Address = require("../models/Address.model");
 
 exports.createRestaurant = async (data) => {

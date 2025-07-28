@@ -1,6 +1,6 @@
 
 const Order = require("../models/Order.model");
-const User = require("../models/User.Model");
+const User = require("../models/user.model");
 const Restaurant = require("../models/Restaurant.model");
 
 exports.createOrder = async ({ userId, restaurantId, foodItems, quantity, totalPrice, orderStatus, deliveryAddressId }) => {
