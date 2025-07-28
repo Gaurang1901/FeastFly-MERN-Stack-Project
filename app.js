@@ -26,7 +26,7 @@ app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Set up routes
-app.use("/api/v1/users", userRoutes);
+app.use("/api/auth/", userRoutes);
 app.use("/api/v1/restaurants", reestaurantRoutes);
 
 // Error handling middleware

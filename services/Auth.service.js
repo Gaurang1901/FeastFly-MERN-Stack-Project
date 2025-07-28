@@ -1,4 +1,3 @@
-
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/TokenGenerator");
@@ -13,7 +12,13 @@ exports.register = async ({ userName, email, password, name, role }) => {
     throw { status: 400, message: "Username already exists" };
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = new User({ userName, email, password: hashedPassword, name, role });
+  const newUser = new User({
+    userName,
+    email,
+    password: hashedPassword,
+    name,
+    role,
+  });
   const createdUser = await newUser.save();
   const token = generateToken(createdUser);
   return {
@@ -28,17 +33,25 @@ exports.register = async ({ userName, email, password, name, role }) => {
 };
 
 exports.login = async ({ userName, password }) => {
-  const userWithUserName = await User.findOne({ userName });
-  const userWithEmail = await User.findOne({ email: userName });
+  const userWithUserName = await User.findOne({ userName }).select("+password");
+  const userWithEmail = await User.findOne({ email: userName }).select(
+    "+password"
+  );
   if (!userWithEmail && !userWithUserName) {
     throw { status: 400, message: "Invalid username or password" };
   }
   const user = userWithUserName || userWithEmail;
+  if (!user || !user.password) {
+    throw { status: 400, message: "Invalid username or password" };
+  }
+
   const isPasswordValid = await bcrypt.compare(password, user.password);
+
   if (!isPasswordValid) {
     throw { status: 400, message: "Invalid username or password" };
   }
   const token = generateToken(user);
+
   return {
     token,
     user: {
@@ -65,7 +78,10 @@ exports.getUserProfile = async (userId) => {
   };
 };
 
-exports.updateProfile = async (userId, { userName, email, phoneNumber, profilePhoto }) => {
+exports.updateProfile = async (
+  userId,
+  { userName, email, phoneNumber, profilePhoto }
+) => {
   const updatedUser = await User.findByIdAndUpdate(
     userId,
     { userName, email, phoneNumber, profilePhoto },
