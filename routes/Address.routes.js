@@ -11,7 +11,7 @@ const addressController = require("../controllers/Address.controller");
 
 /**
  * @swagger
- * /api/address:
+ * /api/v1/address:
  *   post:
  *     tags: [Address]
  *     summary: Create a new address
@@ -41,7 +41,7 @@ router.post("/", addressController.createAddress);
 
 /**
  * @swagger
- * /api/address:
+ * /api/v1/address:
  *   get:
  *     tags: [Address]
  *     summary: Get all addresses
@@ -53,7 +53,7 @@ router.get("/", addressController.getAllAddresses);
 
 /**
  * @swagger
- * /api/address/{id}:
+ * /api/v1/address/{id}:
  *   get:
  *     tags: [Address]
  *     summary: Get an address by ID
@@ -73,7 +73,7 @@ router.get("/:id", addressController.getAddressById);
 
 /**
  * @swagger
- * /api/address/{id}:
+ * /api/v1/address/{id}:
  *   put:
  *     tags: [Address]
  *     summary: Update an address by ID
@@ -99,7 +99,7 @@ router.put("/:id", addressController.updateAddress);
 
 /**
  * @swagger
- * /api/address/{id}:
+ * /api/v1/address/{id}:
  *   delete:
  *     tags: [Address]
  *     summary: Delete an address by ID
@@ -119,7 +119,7 @@ router.delete("/:id", addressController.deleteAddress);
 
 /**
  * @swagger
- * /api/address/user/{id}:
+ * /api/v1/address/user/{id}:
  *   get:
  *     tags: [Address]
  *     summary: Get an address by userId
@@ -139,7 +139,7 @@ router.get("/user/:id", addressController.getAddressesByUser);
 
 /**
  * @swagger
- * /api/address/restaurant/{id}:
+ * /api/v1/address/restaurant/{id}:
  *   get:
  *     tags: [Address]
  *     summary: Get an address by restaurantId

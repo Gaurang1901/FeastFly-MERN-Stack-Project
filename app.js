@@ -7,7 +7,8 @@ const morgan = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./config/SwaggerConfig");
 const userRoutes = require("./routes/User.routes");
-const reestaurantRoutes = require("./routes/Restaurant.routes");
+const restaurantRoutes = require("./routes/Restaurant.routes");
+const addressRoutes = require("./routes/Address.routes");
 
 // Load environment variables
 dotenv.config();
@@ -27,7 +28,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Set up routes
 app.use("/api/auth/", userRoutes);
-app.use("/api/v1/restaurants", reestaurantRoutes);
+app.use("/api/v1/restaurants", restaurantRoutes);
+app.use("/api/v1/address", addressRoutes);
+
 
 // Error handling middleware
 const morganFormat = ":method :url :status :response-time ms";

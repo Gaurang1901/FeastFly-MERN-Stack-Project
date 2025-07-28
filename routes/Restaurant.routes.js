@@ -3,7 +3,7 @@ const router = express.Router();
 const restaurantController = require("../controllers/Restaurant.controller");
 /**
  * @swagger
- * /api/restaurant:
+ * /api/v1/restaurants:
  *   post:
  *     tags: [Restaurant]
  *     summary: Create a new restaurant
@@ -51,7 +51,7 @@ const restaurantController = require("../controllers/Restaurant.controller");
 router.post("/", restaurantController.createRestaurant);
 /**
  * @swagger
- * /api/restaurant:
+ * /api/v1/restaurants:
  *   get:
  *     tags: [Restaurant]
  *     summary: Get all restaurants
@@ -66,7 +66,7 @@ router.get("/", restaurantController.getAllRestaurants);
 
 /**
  * @swagger
- * /api/restaurant/{id}:
+ * /api/v1/restaurants/{id}:
  *   get:
  *     tags: [Restaurant]
  *     summary: Get a restaurant by ID
@@ -89,7 +89,7 @@ router.get("/:id", restaurantController.getRestaurantById);
 
 /**
  * @swagger
- * /api/restaurant/{id}:
+ * /api/v1/restaurants/{id}:
  *   put:
  *     tags: [Restaurant]
  *     summary: Update a restaurant by ID
@@ -118,7 +118,7 @@ router.put("/:id", restaurantController.updateRestaurant);
 
 /**
  * @swagger
- * /api/restaurant/{id}:
+ * /api/v1/restaurants/{id}:
  *   delete:
  *     tags: [Restaurant]
  *     summary: Delete a restaurant by ID
@@ -141,7 +141,7 @@ router.delete("/:id", restaurantController.deleteRestaurant);
 
 /**
  * @swagger
- * /api/restaurant/user/{userId}:
+ * /api/v1/restaurants/user/{userId}:
  *   get:
  *     tags: [Restaurant]
  *     summary: Get a restaurant by userId (ownerId)
