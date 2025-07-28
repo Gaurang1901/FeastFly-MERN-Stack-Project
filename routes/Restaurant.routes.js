@@ -1,14 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const restaurantController = require("../controllers/Restaurant.controller");
-
-/**
- * @swagger
- * tags:
- *   name: Restaurant
- *   description: Restaurant management
- */
-
 /**
  * @swagger
  * /api/restaurant:
@@ -48,10 +40,15 @@ const restaurantController = require("../controllers/Restaurant.controller");
  *         description: Restaurant created successfully
  *       400:
  *         description: Bad request
+ *       409:
+ *         description: Restaurant already exists for this owner
+ *       404:
+ *         description: Owner not found
+ *       500:
+ *         description: Internal server error
  */
 // Create a new restaurant
 router.post("/", restaurantController.createRestaurant);
-
 /**
  * @swagger
  * /api/restaurant:
@@ -61,6 +58,8 @@ router.post("/", restaurantController.createRestaurant);
  *     responses:
  *       200:
  *         description: Restaurants fetched successfully
+ *       500:
+ *         description: Internal server error
  */
 // Get all restaurants
 router.get("/", restaurantController.getAllRestaurants);
@@ -82,6 +81,8 @@ router.get("/", restaurantController.getAllRestaurants);
  *         description: Restaurant fetched successfully
  *       404:
  *         description: Restaurant not found
+ *       500:
+ *         description: Internal server error
  */
 // Get a restaurant by ID
 router.get("/:id", restaurantController.getRestaurantById);
@@ -109,6 +110,8 @@ router.get("/:id", restaurantController.getRestaurantById);
  *         description: Restaurant updated successfully
  *       404:
  *         description: Restaurant not found
+ *       500:
+ *         description: Internal server error
  */
 // Update a restaurant by ID
 router.put("/:id", restaurantController.updateRestaurant);
@@ -130,6 +133,8 @@ router.put("/:id", restaurantController.updateRestaurant);
  *         description: Restaurant deleted successfully
  *       404:
  *         description: Restaurant not found
+ *       500:
+ *         description: Internal server error
  */
 // Delete a restaurant by ID
 router.delete("/:id", restaurantController.deleteRestaurant);
@@ -151,6 +156,8 @@ router.delete("/:id", restaurantController.deleteRestaurant);
  *         description: Restaurant fetched successfully
  *       404:
  *         description: Restaurant not found for this user
+ *       500:
+ *         description: Internal server error
  */
 // Get a restaurant by userId (ownerId)
 router.get("/user/:userId", restaurantController.getRestaurantByUserId);

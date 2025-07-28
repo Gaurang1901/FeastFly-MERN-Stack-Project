@@ -32,6 +32,13 @@ const authController = require("../controllers/Auth.Controller");
  *               - userName
  *               - email
  *               - password
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
  */
 router.post("/register", authController.register);
 
@@ -55,6 +62,13 @@ router.post("/register", authController.register);
  *             required:
  *               - userName
  *               - password
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *       400:
+ *         description: Invalid username or password
+ *       500:
+ *         description: Internal server error
  */
 router.post("/login", authController.login);
 
@@ -70,6 +84,13 @@ router.post("/login", authController.login);
  *         required: true
  *         schema:
  *           type: string
+ *     responses:
+ *       200:
+ *         description: User profile fetched successfully
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
  */
 router.get("/profile/:id", authController.getUserProfile);
 
@@ -104,6 +125,13 @@ router.get("/profile/:id", authController.getUserProfile);
  *               - userName
  *               - email
  *               - phoneNumber
+ *     responses:
+ *       200:
+ *         description: User profile updated successfully
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
  */
 router.put("/profile/:id", authController.updateProfile);
 
@@ -119,6 +147,13 @@ router.put("/profile/:id", authController.updateProfile);
  *         required: true
  *         schema:
  *           type: string
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
  */
 router.delete("/deleteUser/:id", authController.deleteProfile);
 
